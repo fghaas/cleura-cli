@@ -6,10 +6,10 @@ It gives you one scriptable way to authenticate to Cleura and manage your cloud.
 
 It is built on the [cleura-client-go](https://github.com/cleura/cleura-client-go) API client, with commands added incrementally as the API surface matures.
 
-> [!WARNING]
-> **Early (`0.x`) development.**
-> The CLI has been tested against live Cleura environments and is functional, but command coverage is still limited.
-> Also, its commands and flags may change between `0.x` releases.
+!!! important "Early (`0.x`) development"
+
+    The CLI has been tested against live Cleura environments and is functional, but command coverage is still limited.
+    Also, its commands and flags may change between `0.x` releases.
 
 **Currently supported:**
 
@@ -282,11 +282,12 @@ For a project that is not in your own project list (the API offers no account-wi
 The `cleura openstack` command manages OpenStack (Keystone) identity — domains, projects, users, and their role assignments.
 OpenStack users are **distinct from Cleura account users** (`cleura user`): they authenticate against OpenStack itself.
 
-> [!NOTE]
-> **The `cleura openstack` command does not double as a general-purpose OpenStack client, and is not meant to replace [`cleura-openstackclient`](https://github.com/cleura/cleura-openstackclient).**
-> It deliberately covers only Keystone *identity* provisioning (projects, users, roles, and role assignments), i.e., what is covered by `cleura login` and the Cleura control plane.
-> For compute, networking, storage, images, and the rest of the OpenStack API, use `cleura-openstackclient`.
-> That hand-off is why the `cleura openstack` command surface is intentionally small.
+??? note "No replacement for `cleura-openstackclient`"
+
+    **The `cleura openstack` command does not double as a general-purpose OpenStack client, and is not meant to replace [`cleura-openstackclient`](https://github.com/cleura/cleura-openstackclient).**
+    It deliberately covers only Keystone *identity* provisioning (projects, users, roles, and role assignments), i.e., what is covered by `cleura login` and the Cleura control plane.
+    For compute, networking, storage, images, and the rest of the OpenStack API, use `cleura-openstackclient`.
+    That hand-off is why the `cleura openstack` command surface is intentionally small.
 
 Almost every command is scoped to a **domain** and needs the `--domain-id` parameter.
 Cleura gives an account a domain per region, so you normally have several domains.
@@ -381,11 +382,14 @@ profiles:
     username: johndoe
 ```
 
-> **The config file format is internal, and not exposed via an API.**
-> It is shown here so you know what is stored where.
-> Its schema may change between releases.
-> Programs and scripts must not parse it — use `cleura config get-credentials` (see [Tool integration](#tool-integration)), the stable JSON contract.
-> (The `cleura config view` command is used for manual diagnostics, and its output format may change.)
+??? note "Internal configuration file format"
+
+    **The config file format is internal, and not exposed via an API.**
+
+    It is shown here so you know what is stored where.
+    Its schema may change between releases.
+    Programs and scripts must not parse it — use `cleura config get-credentials` (see [Tool integration](#tool-integration)), the stable JSON contract.
+    (The `cleura config view` command is used for manual diagnostics, and its output format may change.)
 
 Environment variables (shared with the [Terraform provider](https://github.com/cleura/terraform-provider-cleura)):
 
